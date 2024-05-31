@@ -21,7 +21,7 @@ model User {
 }
 
 model Broth {
-  id            Int     @id
+  id            Int     @id @default(autoincrement())
   imageInactive String
   imageActive   String
   name          String
@@ -30,7 +30,7 @@ model Broth {
 }
 
 model Protein {
-  id            Int     @id
+  id            Int     @id @default(autoincrement())
   imageInactive String
   imageActive   String
   name          String
