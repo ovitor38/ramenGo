@@ -4,6 +4,7 @@ import { ConfigModule } from "@nestjs/config";
 import { UsersModule } from "./modules/users/users.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { BrothsModule } from './modules/broths/broths.module';
+import { ProteinsModule } from './modules/proteins/proteins.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { BrothsModule } from './modules/broths/broths.module';
     UsersModule,
     AuthModule,
     BrothsModule,
+    ProteinsModule,
   ],
   controllers: [],
   providers: [],
