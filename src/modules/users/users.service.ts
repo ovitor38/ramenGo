@@ -52,7 +52,7 @@ export class UsersService {
     try {
       return await this.userRepository.get(id)
     } catch (error) {
-      if (error.code === PrismaCodeError.USER_NOT_FOUND) {
+      if (error.code === PrismaCodeError.NOT_FOUND) {
         throw new NotFoundException(error.error)
       }
 
@@ -64,7 +64,7 @@ export class UsersService {
     try {
       return await this.userRepository.getByEmail(email)
     } catch (error) {
-      if (error.code === PrismaCodeError.USER_NOT_FOUND) {
+      if (error.code === PrismaCodeError.NOT_FOUND) {
         throw new NotFoundException(error.message)
       }
       throw new InternalServerErrorException(error.message)
@@ -76,7 +76,7 @@ export class UsersService {
       await this.userRepository.update(id, updateUserDto)
       return genericSuccessfulyMessage(entityType.USER, methodType.UPDATED)
     } catch (error) {
-      if (error.code === PrismaCodeError.USER_NOT_FOUND) {
+      if (error.code === PrismaCodeError.NOT_FOUND) {
         throw new NotFoundException(error.error)
       }
       throw new InternalServerErrorException(error.message)
@@ -88,7 +88,7 @@ export class UsersService {
       await this.userRepository.delete(id)
       return genericSuccessfulyMessage(entityType.USER, methodType.DELETED)
     } catch (error) {
-      if (error.code === PrismaCodeError.USER_NOT_FOUND) {
+      if (error.code === PrismaCodeError.NOT_FOUND) {
         throw new NotFoundException(error.error)
       }
       throw new InternalServerErrorException(error.message)
