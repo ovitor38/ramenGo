@@ -15,9 +15,9 @@ import { PrismaCodeError } from 'src/errors/prisma.errors'
 import { USER_ALREADRY_EXIST } from 'src/errors/message.errors'
 import 'src/helpers/response/http-response'
 import {
-  USER_CREATED_SUCESSFULLY,
-  USER_DELETED_SUCESSFULLY,
-  USER_UPDATED_SUCESSFULLY
+  entityType,
+  genericSuccessfulyMessage,
+  methodType
 } from 'src/helpers/response/response-messages/messages'
 import { UserModel } from './models/user.model'
 
@@ -38,7 +38,7 @@ export class UsersService {
       const user = { ...createUserDto, password: hashedPassword }
 
       await this.userRepository.create(user)
-      return USER_CREATED_SUCESSFULLY
+      return genericSuccessfulyMessage(entityType.USER, methodType.CREATED)
     } catch (error) {
       if (error.code === PrismaCodeError.UNIQUE_CONSTRAINT_FAILED) {
         throw new BadRequestException({ message: USER_ALREADRY_EXIST })
@@ -74,7 +74,7 @@ export class UsersService {
   async update(id: string, updateUserDto: UpdateUserDto): Promise<string> {
     try {
       await this.userRepository.update(id, updateUserDto)
-      return USER_UPDATED_SUCESSFULLY
+      return genericSuccessfulyMessage(entityType.USER, methodType.UPDATED)
     } catch (error) {
       if (error.code === PrismaCodeError.USER_NOT_FOUND) {
         throw new NotFoundException(error.error)
@@ -86,7 +86,7 @@ export class UsersService {
   async delete(id: string) {
     try {
       await this.userRepository.delete(id)
-      return USER_DELETED_SUCESSFULLY
+      return genericSuccessfulyMessage(entityType.USER, methodType.DELETED)
     } catch (error) {
       if (error.code === PrismaCodeError.USER_NOT_FOUND) {
         throw new NotFoundException(error.error)
