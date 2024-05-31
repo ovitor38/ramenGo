@@ -1,6 +1,16 @@
 -- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Broth" (
-    "id" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
     "imageInactive" TEXT NOT NULL,
     "imageActive" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -12,7 +22,7 @@ CREATE TABLE "Broth" (
 
 -- CreateTable
 CREATE TABLE "Protein" (
-    "id" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
     "imageInactive" TEXT NOT NULL,
     "imageActive" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -27,6 +37,15 @@ CREATE TABLE "Order" (
     "id" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
     "image" TEXT NOT NULL,
+    "proteinId" TEXT NOT NULL,
+    "brothId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- AddForeignKey
+ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

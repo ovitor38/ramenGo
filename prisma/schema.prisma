@@ -14,10 +14,11 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
+  orders   Order[]
 }
 
 model Broth {
@@ -42,4 +43,8 @@ model Order {
   id          Int    @id
   description String
   image       String
+  proteinId   String
+  brothId     String
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String
 }
