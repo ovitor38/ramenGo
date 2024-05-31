@@ -15,10 +15,16 @@ export class BrothRepository implements IBrothRepository {
     })
   }
   async get(id: number): Promise<BrothEntity> {
-    return await this.prisma.broth.findUniqueOrThrow({ where: { id } })
+    const broth = await this.prisma.broth.findUniqueOrThrow({ where: { id } })
+    const idTransformed = broth.id.toString()
+    return { ...broth, id: idTransformed }
   }
   async getAll(): Promise<BrothEntity[]> {
-    return await this.prisma.broth.findMany()
+    const broths = await this.prisma.broth.findMany()
+    return broths.map((broth) => {
+      const idTransformed = broth.id.toString()
+      return { ...broth, id: idTransformed }
+    })
   }
   async update(id: number, updateDto: UpdateBrothDto): Promise<void> {
     await this.prisma.broth.update({ where: { id }, data: updateDto })

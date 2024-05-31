@@ -44,7 +44,7 @@ export class BrothsController {
   async findOne(
     @Param('id') id: string
   ): Promise<ISuccessfullyResponse<BrothEntity>> {
-    return successResponseBody(await this.brothsService.findOne(+id))
+    return successResponseBody(await this.brothsService.findOne(id))
   }
 
   @Patch(':id')
@@ -54,13 +54,13 @@ export class BrothsController {
     @Body() updateBrothDto: UpdateBrothDto
   ): Promise<ISuccessfullyResponse> {
     return successResponseMessage(
-      await this.brothsService.update(+id, updateBrothDto)
+      await this.brothsService.update(id, updateBrothDto)
     )
   }
 
   @Delete(':id')
   @UseGuards(ApiKeyGuard)
   async remove(@Param('id') id: string): Promise<ISuccessfullyResponse> {
-    return successResponseMessage(await this.brothsService.remove(+id))
+    return successResponseMessage(await this.brothsService.remove(id))
   }
 }

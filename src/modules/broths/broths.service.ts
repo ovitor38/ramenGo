@@ -41,9 +41,9 @@ export class BrothsService {
     }
   }
 
-  async findOne(id: number): Promise<BrothEntity> {
+  async findOne(id: string): Promise<BrothEntity> {
     try {
-      return await this.brothRepository.get(id)
+      return await this.brothRepository.get(+id)
     } catch (error) {
       if (error.code === PrismaCodeError.NOT_FOUND) {
         throw new NotFoundException(error.message)
@@ -52,9 +52,9 @@ export class BrothsService {
     }
   }
 
-  async update(id: number, updateBrothDto: UpdateBrothDto): Promise<string> {
+  async update(id: string, updateBrothDto: UpdateBrothDto): Promise<string> {
     try {
-      await this.brothRepository.update(id, updateBrothDto)
+      await this.brothRepository.update(+id, updateBrothDto)
 
       return genericSuccessfulyMessage(entityType.BROTH, methodType.UPDATED)
     } catch (error) {
@@ -67,9 +67,9 @@ export class BrothsService {
     }
   }
 
-  async remove(id: number): Promise<string> {
+  async remove(id: string): Promise<string> {
     try {
-      await this.brothRepository.delete(id)
+      await this.brothRepository.delete(+id)
       return genericSuccessfulyMessage(entityType.BROTH, methodType.DELETED)
     } catch (error) {
       if (error.code === PrismaCodeError.NOT_FOUND) {
