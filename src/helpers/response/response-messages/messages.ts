@@ -1,6 +1,7 @@
 export enum entityType {
   USER = 'User',
-  BROTH = 'Broth'
+  BROTH = 'Broth',
+  PROTEIN = 'Protein'
 }
 
 export enum methodType {
