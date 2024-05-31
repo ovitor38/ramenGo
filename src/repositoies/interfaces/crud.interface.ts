@@ -1,4 +1,4 @@
-export interface IRepository<T, CreateDto, UpdateDto> {
+export interface ICrudRepository<T, CreateDto, UpdateDto> {
   create(createDto: CreateDto): Promise<void>
   get(id: string | number): Promise<T>
   getAll(): Promise<T[]>
