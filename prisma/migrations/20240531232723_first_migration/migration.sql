@@ -34,7 +34,7 @@ CREATE TABLE "Protein" (
 
 -- CreateTable
 CREATE TABLE "Order" (
-    "id" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "proteinId" TEXT NOT NULL,

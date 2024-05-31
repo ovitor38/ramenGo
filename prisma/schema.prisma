@@ -40,11 +40,11 @@ model Protein {
 }
 
 model Order {
-  id          Int    @id
+  id          String @unique
   description String
   image       String
   proteinId   String
   brothId     String
-  user        User   @relation(fields: [userId], references: [id])
   userId      String
+  user        User   @relation(fields: [userId], references: [id])
 }
