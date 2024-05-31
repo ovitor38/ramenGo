@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './entities/user.entity';
-import { HasherAdapterModule } from 'src/adapters/hasher/hasher.module';
+import { Module } from "@nestjs/common";
+import { UsersService } from "./users.service";
+import { UsersController } from "./users.controller";
+import { HasherAdapterModule } from "src/adapters/hasher/hasher.module";
+import { PrismaService } from "src/prisma.service";
+import { UserPrismaRepository } from "./repository/user.repository";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), HasherAdapterModule],
+  imports: [HasherAdapterModule],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [PrismaService, UserPrismaRepository, UsersService],
   exports: [UsersService],
 })
 export class UsersModule {}

@@ -1,8 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
 
-import { UsersService } from '../users/users.service';
-import { HasherAdapter } from 'src/adapters/hasher/hasher.adapter';
+import { UsersService } from "../users/users.service";
+import { HasherAdapter } from "src/adapters/hasher/hasher.adapter";
 
 @Injectable()
 export class AuthService {
@@ -16,7 +16,7 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<{ access_token: string }> {
-    const user = await this.usersService.findOneByEmail(email);
+    const user = await this.usersService.getOneByEmail(email);
 
     const samePassword = await this.hasherAdapter.compare(
       password,

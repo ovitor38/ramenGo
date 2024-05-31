@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { HasherAdapter } from './hasher.adapter';
+import { Module } from "@nestjs/common";
+import { HasherAdapter } from "./hasher.adapter";
 
 @Module({
   providers: [HasherAdapter],

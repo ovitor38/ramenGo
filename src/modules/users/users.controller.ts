@@ -6,32 +6,52 @@ import {
   Param,
   Delete,
   Put,
-} from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+  UseGuards
+} from '@nestjs/common'
+import { UsersService } from './users.service'
+import { CreateUserDto } from './dto/create-user.dto'
+import { UpdateUserDto } from './dto/update-user.dto'
+import { AuthGuard } from '../auth/auth.guard'
+import {
+  ISuccessfullyResponse,
+  successResponseBody,
+  successResponseMessage
+} from 'src/helpers/response/http-response'
+import { UserModel } from './models/user.model'
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await this.usersService.create(createUserDto);
+  async create(
+    @Body() createUserDto: CreateUserDto
+  ): Promise<ISuccessfullyResponse> {
+    return successResponseMessage(await this.usersService.create(createUserDto))
   }
 
   @Get(':id')
-  findOneOrFail(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  @UseGuards(AuthGuard)
+  async get(
+    @Param('id') id: string
+  ): Promise<ISuccessfullyResponse<UserModel>> {
+    return successResponseBody(await this.usersService.getOne(id))
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return await this.usersService.update(id, updateUserDto);
+  @UseGuards(AuthGuard)
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto
+  ): Promise<ISuccessfullyResponse> {
+    return successResponseMessage(
+      await this.usersService.update(id, updateUserDto)
+    )
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  @UseGuards(AuthGuard)
+  async remove(@Param('id') id: string): Promise<ISuccessfullyResponse> {
+    return successResponseMessage(await this.usersService.delete(id))
   }
 }
