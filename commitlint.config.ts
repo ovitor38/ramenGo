@@ -46,7 +46,7 @@ const Configuration: UserConfig = {
     "type-empty": [2, "never"],
     "scope-empty": [2, "never"],
     "scope-case": [2, "always", "camel-case"],
-    "subject-case": [2, "always", "camel-case"],
+    "subject-case": [2, "always", "lowerCase"],
     "subject-empty": [2, "never"],
   },
 };
