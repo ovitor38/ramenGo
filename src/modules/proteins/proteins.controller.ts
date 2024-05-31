@@ -11,20 +11,20 @@ import {
 import { ProteinsService } from './proteins.service'
 import { CreateProteinDto } from './dto/create-protein.dto'
 import { UpdateProteinDto } from './dto/update-protein.dto'
-import { AuthGuard } from '../auth/auth.guard'
 import {
   ISuccessfullyResponse,
   successResponseBody,
   successResponseMessage
 } from 'src/helpers/response/http-response'
 import { ProteinEntity } from './entities/protein.entity'
+import { ApiKeyGuard } from '../auth/api-key.guard'
 
 @Controller('proteins')
 export class ProteinsController {
   constructor(private readonly proteinsService: ProteinsService) {}
 
   @Post()
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async create(
     @Body() createProteinDto: CreateProteinDto
   ): Promise<ISuccessfullyResponse> {
@@ -34,13 +34,13 @@ export class ProteinsController {
   }
 
   @Get()
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async findAll(): Promise<ISuccessfullyResponse<ProteinEntity[]>> {
     return successResponseBody(await this.proteinsService.findAll())
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async findOne(
     @Param('id') id: string
   ): Promise<ISuccessfullyResponse<ProteinEntity>> {
@@ -48,7 +48,7 @@ export class ProteinsController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async update(
     @Param('id') id: string,
     @Body() updateProteinDto: UpdateProteinDto
@@ -59,7 +59,7 @@ export class ProteinsController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async remove(@Param('id') id: string): Promise<ISuccessfullyResponse> {
     return successResponseMessage(await this.proteinsService.remove(+id))
   }

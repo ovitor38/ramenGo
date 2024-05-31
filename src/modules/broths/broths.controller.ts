@@ -11,20 +11,20 @@ import {
 import { BrothsService } from './broths.service'
 import { CreateBrothDto } from './dto/create-broth.dto'
 import { UpdateBrothDto } from './dto/update-broth.dto'
-import { AuthGuard } from '../auth/auth.guard'
 import {
   ISuccessfullyResponse,
   successResponseBody,
   successResponseMessage
 } from 'src/helpers/response/http-response'
 import { BrothEntity } from './entities/broth.entity'
+import { ApiKeyGuard } from '../auth/api-key.guard'
 
 @Controller('broths')
 export class BrothsController {
   constructor(private readonly brothsService: BrothsService) {}
 
   @Post()
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async create(
     @Body() createBrothDto: CreateBrothDto
   ): Promise<ISuccessfullyResponse> {
@@ -34,13 +34,13 @@ export class BrothsController {
   }
 
   @Get()
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async findAll(): Promise<ISuccessfullyResponse<BrothEntity[]>> {
     return successResponseBody(await this.brothsService.findAll())
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async findOne(
     @Param('id') id: string
   ): Promise<ISuccessfullyResponse<BrothEntity>> {
@@ -48,7 +48,7 @@ export class BrothsController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async update(
     @Param('id') id: string,
     @Body() updateBrothDto: UpdateBrothDto
@@ -59,7 +59,7 @@ export class BrothsController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard)
+  @UseGuards(ApiKeyGuard)
   async remove(@Param('id') id: string): Promise<ISuccessfullyResponse> {
     return successResponseMessage(await this.brothsService.remove(+id))
   }
