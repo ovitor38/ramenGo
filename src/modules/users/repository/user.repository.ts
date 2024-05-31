@@ -22,7 +22,7 @@ export class UserPrismaRepository implements IUserRepository {
   }
 
   async getByEmail(email: string): Promise<UserModel> {
-    return await this.prisma.user.findUnique({
+    return await this.prisma.user.findUniqueOrThrow({
       where: { email }
     })
   }
