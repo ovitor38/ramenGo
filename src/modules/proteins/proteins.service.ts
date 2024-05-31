@@ -14,11 +14,12 @@ import {
 } from 'src/helpers/response/response-messages/messages'
 import { ProteinEntity } from './entities/protein.entity'
 import { PrismaCodeError } from 'src/errors/prisma.errors'
+import { ProteinRepository } from './repository/protein.repostory'
 
 @Injectable()
 export class ProteinsService {
   constructor(
-    @Inject()
+    @Inject(ProteinRepository)
     private proteinRepository: IProteinRepository
   ) {}
   async create(createProteinDto: CreateProteinDto): Promise<string> {
