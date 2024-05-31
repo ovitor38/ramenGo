@@ -1,4 +1,4 @@
-import { IsDecimal, IsNotEmpty, IsString } from 'class-validator'
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
 
 export class CreateBrothDto {
   @IsNotEmpty()
@@ -18,6 +18,6 @@ export class CreateBrothDto {
   description: string
 
   @IsNotEmpty()
-  @IsDecimal()
+  @IsNumber()
   price: number
 }
