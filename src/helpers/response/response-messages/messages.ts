@@ -1,7 +1,8 @@
 export enum entityType {
   USER = 'User',
   BROTH = 'Broth',
-  PROTEIN = 'Protein'
+  PROTEIN = 'Protein',
+  ORDER = 'Order'
 }
 
 export enum methodType {
