@@ -24,9 +24,9 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .addTag('Users')
-    .addTag('auth')
-    .addBearerAuth()
+    .addTag('Auth')
     .addTag('Proteins')
+    .addBearerAuth()
     .addApiKey()
     .build()
 

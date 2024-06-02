@@ -47,7 +47,7 @@ export class ProteinsController {
   @Post()
   @ApiOperation({ summary: 'Create a new protein record' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'protein created successfully.',
     type: MessageResponseModel
   })
