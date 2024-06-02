@@ -22,14 +22,40 @@ import {
 } from 'src/helpers/response/http-response'
 import { OrderEntity } from './entities/order.entity'
 import { Request } from 'express'
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { MessageResponseModel } from 'src/models/message.response'
+import { ForbiddenExceptionModel } from 'src/errors/models/forbidden-exception.model'
+import { OrderModelResponse } from './models/order-response.model'
 
 @Controller('orders')
+@ApiTags('Orders')
+@UseGuards(ApiKeyGuard)
+@ApiHeader({
+  name: 'x-api-key',
+  description: 'API key required',
+  required: true,
+})
+@ApiResponse({
+  status: 500,
+  description: 'Internal Server Error',
+  type: MessageResponseModel
+})
+@ApiResponse({
+  status: 403,
+  description: 'Api-key is missing',
+  type: ForbiddenExceptionModel
+})
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  @UseGuards(ApiKeyGuard)
   @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'Create a new order record' })
+  @ApiResponse({
+    status: 200,
+    description: 'Create a new order record with the data of body and userId extract from JWT',
+    type: MessageResponseModel
+  })
   async create(
     @Body() createOrderDto: CreateOrderDto,
     @Headers('x-api-key') apiKey: string,
@@ -42,13 +68,23 @@ export class OrdersController {
   }
 
   @Get()
-  @UseGuards(ApiKeyGuard)
+  @ApiOperation({ summary: 'Returns an array of all orders records' })
+  @ApiResponse({
+    status: 200,
+    type: [OrderModelResponse],
+    description: 'Return all orders records'
+  })
   async findAll(): Promise<ISuccessfullyResponse<OrderEntity[]>> {
     return successResponseBody(await this.ordersService.findAll())
   }
 
   @Get(':id')
-  @UseGuards(ApiKeyGuard)
+  @ApiOperation({ summary: 'Returns order of the referenced id' })
+  @ApiResponse({
+    status: 200,
+    type: OrderModelResponse,
+    description: 'Returns order of the referenced id'
+  })
   async findOne(
     @Param('id') id: string
   ): Promise<ISuccessfullyResponse<OrderEntity>> {
@@ -56,7 +92,12 @@ export class OrdersController {
   }
 
   @Patch(':id')
-  @UseGuards(ApiKeyGuard)
+  @ApiOperation({ summary: 'Update the broth order with the referenced id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Update the order record with the referenced id',
+    type: MessageResponseModel
+  })
   async update(
     @Param('id') id: string,
     @Body() updateOrderDto: UpdateOrderDto
@@ -67,7 +108,12 @@ export class OrdersController {
   }
 
   @Delete(':id')
-  @UseGuards(ApiKeyGuard)
+  @ApiOperation({ summary: 'Delete the order record with the referenced id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Delete the order record with the referenced id',
+    type: MessageResponseModel
+  })
   async remove(@Param('id') id: string): Promise<ISuccessfullyResponse> {
     return successResponseMessage(await this.ordersService.remove(id))
   }
