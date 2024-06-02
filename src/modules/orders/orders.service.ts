@@ -16,6 +16,8 @@ import {
 } from 'src/helpers/response/response-messages/messages'
 import { OrderEntity } from './entities/order.entity'
 import { PrismaCodeError } from 'src/errors/prisma.errors'
+import { OrderResponse } from './repository/interfaces/response.interface'
+// import { OrderResponse } from './repository/interfaces/response.interface'
 
 @Injectable()
 export class OrdersService {
@@ -27,13 +29,19 @@ export class OrdersService {
     createOrderDto: CreateOrderDto,
     apiKey: string,
     userId: string
-  ): Promise<string> {
+  ): Promise<OrderResponse> {
     try {
       const id = await fetchApiData(apiKey)
 
       const orderData = { id, ...createOrderDto, userId }
-      await this.orderRepository.create(orderData)
-      return genericSuccessfulyMessage(entityType.ORDER, methodType.CREATED)
+
+      const order = await this.orderRepository.create(orderData)
+
+      if (!order) {
+        throw new InternalServerErrorException('Failed to create order')
+      }
+
+      return order
     } catch (error) {
       throw new InternalServerErrorException(error.message)
     }

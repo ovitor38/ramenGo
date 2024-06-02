@@ -1,18 +1,29 @@
 import axios from 'axios'
 
-export async function fetchApiData(
-  apiKey: string
-): Promise<string> {
+export async function fetchApiData(apiKey: string): Promise<string> {
   try {
-    const { data } = await axios.post("https://api.tech.redventures.com.br/orders/generate-id", {
-      headers: {
-        'x-api-key': apiKey
+    console.log(apiKey)
+    const { data } = await axios.post(
+      'https://api.tech.redventures.com.br/orders/generate-id',
+      {},
+      {
+        headers: {
+          'x-api-key': apiKey
+        }
       }
-    })
+    )
 
-    return data
+    return data.orderId
   } catch (error) {
-    console.error('Failed to fetch data:', error)
+    if (axios.isAxiosError(error)) {
+      console.error(
+        'Axios error details:',
+        error.response?.status,
+        error.response?.headers
+      )
+    } else {
+      console.error('Failed to fetch data:', error)
+    }
     throw error
   }
 }
