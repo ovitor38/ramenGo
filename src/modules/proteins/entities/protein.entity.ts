@@ -1,6 +1,6 @@
 import { Decimal } from '@prisma/client/runtime/library'
 
-export interface ProteinEntity {
+export class ProteinEntity {
   id: number
   imageInactive: string
   imageActive: string

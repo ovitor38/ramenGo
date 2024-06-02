@@ -20,14 +20,14 @@ import {
 import { UserModel } from './models/user.model'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { UserModelResponse } from './models/user.response'
-import { UserMessageResponse } from './models/user-message.response'
+import { MessageResponseModel } from '../../models/message.response'
 
 @Controller('users')
-@ApiTags('users')
+@ApiTags('Users')
 @ApiResponse({
   status: 500,
   description: 'Internal Server Error',
-  type: UserMessageResponse
+  type: MessageResponseModel
 })
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -37,7 +37,7 @@ export class UsersController {
   @ApiResponse({
     status: 201,
     description: 'User created successfully.',
-    type: UserMessageResponse
+    type: MessageResponseModel
   })
   async create(
     @Body() createUserDto: CreateUserDto
@@ -56,7 +56,7 @@ export class UsersController {
   @ApiResponse({
     status: 401,
     description: 'Unauthorized User',
-    type: UserMessageResponse
+    type: MessageResponseModel
   })
   async get(
     @Param('id') id: string
@@ -70,12 +70,12 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'User updated successfully.',
-    type: UserMessageResponse
+    type: MessageResponseModel
   })
   @ApiResponse({
     status: 401,
     description: 'Unauthorized User',
-    type: UserMessageResponse
+    type: MessageResponseModel
   })
   async update(
     @Param('id') id: string,
@@ -91,12 +91,12 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'User updated successfully.',
-    type: UserMessageResponse
+    type: MessageResponseModel
   })
   @ApiResponse({
     status: 401,
     description: 'Unauthorized User',
-    type: UserMessageResponse
+    type: MessageResponseModel
   })
   @ApiOperation({ summary: 'Delete the user with the referenced id' })
   async remove(@Param('id') id: string): Promise<ISuccessfullyResponse> {
