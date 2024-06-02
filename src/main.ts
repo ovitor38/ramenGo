@@ -26,6 +26,7 @@ async function bootstrap() {
     .addTag('Users')
     .addTag('Auth')
     .addTag('Proteins')
+    .addTag('Broths')
     .addBearerAuth()
     .addApiKey()
     .build()

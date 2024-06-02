@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Decimal } from '@prisma/client/runtime/library'
 
-export class BrothEntity {
+export class BrothModel {
   @ApiProperty()
   id: string
 
@@ -18,5 +17,5 @@ export class BrothEntity {
   description: string
 
   @ApiProperty()
-  price: Decimal
+  price: number
 }
