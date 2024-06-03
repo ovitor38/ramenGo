@@ -18,9 +18,9 @@ async function bootstrap() {
   )
 
   const config = new DocumentBuilder()
-    .setTitle('Documentação com Swagger - Fábrica de Sinapse')
+    .setTitle('Documentação com Swagger - RamenGO')
     .setDescription(
-      'O Swagger (aka OpenApi) é uma biblioteca muito conhecida no universo backend, estando disponível para diversas linguagens e frameworks. Ela gera um site interno no seu backend que descreve, com muitos detalhes, cada endpoint e estrutura de entidades presentes na sua aplicação.'
+      'Este é um teste proposto pela RED VENTURES, de um sistema de restaurante que tem como objetivo principal buscar id de proteinas e caldos para inserir em um pedido'
     )
     .setVersion('1.0')
     .addTag('Users')
@@ -37,6 +37,6 @@ async function bootstrap() {
 
   await app.listen(port)
 
-  console.log(`Server is running on port: ${port} 🚀`)
+  console.log(`Server is running 🚀`)
 }
 bootstrap()
