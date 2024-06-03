@@ -63,11 +63,11 @@ export class BrothsController {
   @ApiOperation({ summary: 'Returns an array of all broths records' })
   @ApiResponse({
     status: 200,
-    type: [BrothModelResponse],
+    type: [BrothEntity],
     description: 'Return all broth records'
   })
-  async findAll(): Promise<ISuccessfullyResponse<BrothEntity[]>> {
-    return successResponseBody(await this.brothsService.findAll())
+  async findAll(): Promise<BrothEntity[]> {
+    return await this.brothsService.findAll()
   }
 
   @Get(':id')

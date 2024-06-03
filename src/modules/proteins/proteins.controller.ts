@@ -63,11 +63,11 @@ export class ProteinsController {
   @ApiOperation({ summary: 'Returns all proteins records' })
   @ApiResponse({
     status: 200,
-    type: [ProteinModelResponse],
+    type: [ProteinEntity],
     description: 'Returns all proteins records'
   })
-  async findAll(): Promise<ISuccessfullyResponse<ProteinEntity[]>> {
-    return successResponseBody(await this.proteinsService.findAll())
+  async findAll(): Promise<ProteinEntity[]> {
+    return await this.proteinsService.findAll()
   }
 
   @Get(':id')
