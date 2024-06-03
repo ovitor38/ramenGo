@@ -7,7 +7,6 @@ const options = { cors: true }
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, options)
-  app.enableCors()
   const port = process.env.PORT || 8000
 
   app.useGlobalPipes(
