@@ -4,10 +4,13 @@ import { ValidationPipe } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { useContainer } from 'class-validator'
 
-const options = { cors: true }
-
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, options)
+  const app = await NestFactory.create(AppModule)
+  app.enableCors({
+    origin: '*',
+    methods: 'GET, PATCH, POST, DELETE',
+    allowedHeaders: 'Content-Type, Authorization'
+  })
   const port = process.env.PORT || 8000
 
   app.useGlobalPipes(
