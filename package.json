@@ -15,7 +15,7 @@
     "start:prod": "node dist/src/main",
     "lint": "eslint --fix . && prettier --write",
     "lint:check": "eslint . && prettier --check --log-level warn .",
-    "prepare": "husky"
+    "prepare": "husky && prisma generate"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.2",
