@@ -9,7 +9,8 @@ async function bootstrap() {
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+    credentials: true,
   })
   const port = process.env.PORT || 8000
 
@@ -55,6 +56,6 @@ async function bootstrap() {
 
   await app.listen(port)
 
-  console.log(`Server is running 🚀`)
+  console.log(`Server is running on port ${port} 🚀`)
 }
 bootstrap()
