@@ -29,7 +29,7 @@ import { BrothModelResponse } from './models/broth-response.model'
 @ApiHeader({
   name: 'x-api-key',
   description: 'API key required',
-  required: true,
+  required: true
 })
 @ApiResponse({
   status: 500,

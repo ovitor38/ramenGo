@@ -36,7 +36,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({
     status: 201,
-    description: 'User created successfully.',
+    description: 'Create new user.',
     type: MessageResponseModel
   })
   async create(
@@ -51,7 +51,7 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     type: UserModelResponse,
-    description: 'The found record'
+    description: 'The found user record'
   })
   @ApiResponse({
     status: 401,
@@ -69,7 +69,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Update the user with the referenced id' })
   @ApiResponse({
     status: 200,
-    description: 'User updated successfully.',
+    description: 'Update the user with the referenced id',
     type: MessageResponseModel
   })
   @ApiResponse({
@@ -88,9 +88,10 @@ export class UsersController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'Delete the user with the referenced id' })
   @ApiResponse({
     status: 200,
-    description: 'User updated successfully.',
+    description: 'Delete the user with the referenced id.',
     type: MessageResponseModel
   })
   @ApiResponse({
@@ -98,7 +99,6 @@ export class UsersController {
     description: 'Unauthorized User',
     type: MessageResponseModel
   })
-  @ApiOperation({ summary: 'Delete the user with the referenced id' })
   async remove(@Param('id') id: string): Promise<ISuccessfullyResponse> {
     return successResponseMessage(await this.usersService.delete(id))
   }

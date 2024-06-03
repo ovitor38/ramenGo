@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { ProteinEntity } from '../entities/protein.entity'
+import { ProteinModel } from './protein.model'
 
 export class ProteinModelResponse {
   @ApiProperty({ default: 200 })
   statusCode: number
 
-  @ApiProperty({ description: 'The user data', type: ProteinEntity })
-  result: ProteinEntity
+  @ApiProperty({ description: 'The user data', type: ProteinModel })
+  result: ProteinModel
 }

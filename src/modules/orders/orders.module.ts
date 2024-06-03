@@ -6,7 +6,7 @@ import { OrderRepository } from './repository/order.repository'
 import { HttpModule } from '@nestjs/axios'
 
 @Module({
-  imports:[HttpModule],
+  imports: [HttpModule],
   controllers: [OrdersController],
   providers: [PrismaService, OrderRepository, OrdersService]
 })

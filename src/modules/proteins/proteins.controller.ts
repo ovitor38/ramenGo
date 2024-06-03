@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common'
 import { ProteinsService } from './proteins.service'
 import { CreateProteinDto } from './dto/create-protein.dto'
@@ -29,12 +29,12 @@ import { ProteinModelResponse } from './models/protein-response.model'
 @ApiHeader({
   name: 'x-api-key',
   description: 'API key required',
-  required: true,
+  required: true
 })
 @ApiResponse({
   status: 500,
   description: 'Internal Server Error',
-  type: MessageResponseModel  
+  type: MessageResponseModel
 })
 @ApiResponse({
   status: 403,
@@ -48,7 +48,7 @@ export class ProteinsController {
   @ApiOperation({ summary: 'Create a new protein record' })
   @ApiResponse({
     status: 200,
-    description: 'protein created successfully.',
+    description: 'Create a new protein record.',
     type: MessageResponseModel
   })
   async create(
@@ -63,19 +63,19 @@ export class ProteinsController {
   @ApiOperation({ summary: 'Returns all proteins records' })
   @ApiResponse({
     status: 200,
-    type: ProteinModelResponse,
-    description: 'The found record'
+    type: [ProteinModelResponse],
+    description: 'Returns all proteins records'
   })
   async findAll(): Promise<ISuccessfullyResponse<ProteinEntity[]>> {
     return successResponseBody(await this.proteinsService.findAll())
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Returns all proteins records' })
+  @ApiOperation({ summary: 'Returns the protein record of the referenced id' })
   @ApiResponse({
     status: 200,
     type: ProteinModelResponse,
-    description: 'The found record'
+    description: 'Returns the protein record of the referenced id'
   })
   async findOne(
     @Param('id') id: string
@@ -87,7 +87,7 @@ export class ProteinsController {
   @ApiOperation({ summary: 'Update the protein record with the referenced id' })
   @ApiResponse({
     status: 200,
-    description: 'Protein record updated successfully.',
+    description: 'Update the protein record with the referenced id.',
     type: MessageResponseModel
   })
   async update(
@@ -103,7 +103,7 @@ export class ProteinsController {
   @ApiOperation({ summary: 'Delete the protein record with the referenced id' })
   @ApiResponse({
     status: 200,
-    description: 'Protein record deleted successfully.',
+    description: 'Delete the protein record with the referenced id',
     type: MessageResponseModel
   })
   async remove(@Param('id') id: string): Promise<ISuccessfullyResponse> {

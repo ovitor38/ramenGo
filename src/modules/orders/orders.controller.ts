@@ -33,7 +33,7 @@ import { OrderModelResponse } from './models/order-response.model'
 @ApiHeader({
   name: 'x-api-key',
   description: 'API key required',
-  required: true,
+  required: true
 })
 @ApiResponse({
   status: 500,
@@ -53,15 +53,16 @@ export class OrdersController {
   @ApiOperation({ summary: 'Create a new order record' })
   @ApiResponse({
     status: 200,
-    description: 'Create a new order record with the data of body and userId extract from JWT',
+    description:
+      'Create a new order record with the data of body and userId extract from JWT',
     type: MessageResponseModel
   })
   async create(
     @Body() createOrderDto: CreateOrderDto,
     @Headers('x-api-key') apiKey: string,
-    @Req() req:Request
+    @Req() req: Request
   ) {
-    const userId: string = req["user"].sub;
+    const userId: string = req['user'].sub
     return successResponseBody(
       await this.ordersService.create(createOrderDto, apiKey, userId)
     )
